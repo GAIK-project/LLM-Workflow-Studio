@@ -25,7 +25,7 @@ const DataSourceNode = ({ data, isConnectable }: NodeProps) => {
       // For now, we're just updating the local state
       data.inputText = newText;
     },
-    [data]
+    [data],
   );
 
   // Prevent event propagation for keyboard events in the textarea
@@ -34,7 +34,7 @@ const DataSourceNode = ({ data, isConnectable }: NodeProps) => {
       // Stop propagation for all keyboard events in the textarea
       e.stopPropagation();
     },
-    []
+    [],
   );
 
   return (

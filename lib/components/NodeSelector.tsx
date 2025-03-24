@@ -1,4 +1,3 @@
-// components/NodeSelector.tsx
 import { BrainCircuit, Database, MessageSquare } from "lucide-react";
 import React from "react";
 
@@ -9,7 +8,7 @@ interface NodeSelectorProps {
 const NodeSelector = ({ disabled = false }: NodeSelectorProps) => {
   const onDragStart = (
     event: React.DragEvent<HTMLDivElement>,
-    nodeType: string
+    nodeType: string,
   ) => {
     if (disabled) return;
     event.dataTransfer.setData("application/reactflow", nodeType);

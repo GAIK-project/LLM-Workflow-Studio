@@ -1,4 +1,3 @@
-// components/Sidebar.tsx
 "use client";
 
 import { ChevronLeft, ChevronRight, Key } from "lucide-react";

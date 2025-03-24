@@ -1,4 +1,3 @@
-// components/FloatingControls.tsx
 "use client";
 
 import { Check, Play, Trash2, X } from "lucide-react";

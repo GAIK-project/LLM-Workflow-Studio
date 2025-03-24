@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       messages,
       temperature = 0.7,
       format = "text",
-    } = await request.json() as {
+    } = (await request.json()) as {
       apiKey: string;
       model?: string;
       messages: Message[];
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     if (!apiKey) {
       return NextResponse.json(
         { error: "API key is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     if (!userMessage) {
       return NextResponse.json(
         { error: "User message is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -89,10 +89,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(response);
   } catch (error: unknown) {
     console.error("AI SDK error:", error);
-    const message = error instanceof Error ? error.message : "Failed to call AI service";
-    return NextResponse.json(
-      { error: message },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : "Failed to call AI service";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

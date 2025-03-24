@@ -10,7 +10,7 @@ const RAGModelNode = ({ data, isConnectable }: NodeProps) => {
   const [modelName, setModelName] = useState(data.modelName || "gpt-4o-mini");
   const [temperature, setTemperature] = useState(data.temperature || 0.7);
   const [systemPrompt, setSystemPrompt] = useState(
-    data.systemPrompt || "You are a helpful assistant."
+    data.systemPrompt || "You are a helpful assistant.",
   );
 
   const openaiModels = [
@@ -27,7 +27,7 @@ const RAGModelNode = ({ data, isConnectable }: NodeProps) => {
       setModelName(newModel);
       data.modelName = newModel;
     },
-    [data]
+    [data],
   );
 
   const handleTemperatureChange = useCallback(
@@ -36,7 +36,7 @@ const RAGModelNode = ({ data, isConnectable }: NodeProps) => {
       setTemperature(newTemp);
       data.temperature = newTemp;
     },
-    [data]
+    [data],
   );
 
   const handleSystemPromptChange = useCallback(
@@ -45,7 +45,7 @@ const RAGModelNode = ({ data, isConnectable }: NodeProps) => {
       setSystemPrompt(newPrompt);
       data.systemPrompt = newPrompt;
     },
-    [data]
+    [data],
   );
 
   return (

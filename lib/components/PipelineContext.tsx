@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// contexts/PipelineContext.tsx
 "use client";
 
-import React, { createContext, ReactNode, useContext, useState } from 'react';
-import { Edge, Node } from 'reactflow';
+import React, { createContext, ReactNode, useContext, useState } from "react";
+import { Edge, Node } from "reactflow";
 
 interface ApiKeys {
   openai?: string;
@@ -22,7 +21,9 @@ interface PipelineContextType {
   setIsExecuting: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const PipelineContext = createContext<PipelineContextType | undefined>(undefined);
+const PipelineContext = createContext<PipelineContextType | undefined>(
+  undefined,
+);
 
 export const PipelineProvider = ({ children }: { children: ReactNode }) => {
   const [apiKeys, setApiKeys] = useState<ApiKeys>({});
@@ -58,7 +59,7 @@ export const PipelineProvider = ({ children }: { children: ReactNode }) => {
 export const usePipeline = () => {
   const context = useContext(PipelineContext);
   if (context === undefined) {
-    throw new Error('usePipeline must be used within a PipelineProvider');
+    throw new Error("usePipeline must be used within a PipelineProvider");
   }
   return context;
 };

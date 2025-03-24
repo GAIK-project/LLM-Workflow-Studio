@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// components/PipelineControls.tsx
 "use client";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -75,7 +74,7 @@ const PipelineControls = ({
                   {validationResult.errors.map(
                     (error: string, index: number) => (
                       <li key={index}>{error}</li>
-                    )
+                    ),
                   )}
                 </ul>
               </AlertDescription>
@@ -90,7 +89,7 @@ const PipelineControls = ({
                   {validationResult.warnings.map(
                     (warning: string, index: number) => (
                       <li key={index}>{warning}</li>
-                    )
+                    ),
                   )}
                 </ul>
               </AlertDescription>

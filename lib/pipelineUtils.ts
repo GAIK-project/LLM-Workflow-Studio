@@ -1,5 +1,4 @@
-// lib/pipelineUtils.ts
-import { Edge, Node } from 'reactflow';
+import { Edge, Node } from "reactflow";
 
 export interface PipelineValidationResult {
   valid: boolean;
@@ -10,7 +9,10 @@ export interface PipelineValidationResult {
 /**
  * Validates a pipeline configuration
  */
-export const validatePipeline = (nodes: Node[], edges: Edge[]): PipelineValidationResult => {
+export const validatePipeline = (
+  nodes: Node[],
+  edges: Edge[],
+): PipelineValidationResult => {
   const result: PipelineValidationResult = {
     valid: true,
     errors: [],
@@ -20,35 +22,39 @@ export const validatePipeline = (nodes: Node[], edges: Edge[]): PipelineValidati
   // Check if there are any nodes
   if (nodes.length === 0) {
     result.valid = false;
-    result.errors.push('Pipeline has no nodes.');
+    result.errors.push("Pipeline has no nodes.");
     return result;
   }
 
   // Check if there are any data source nodes
-  const hasDataSource = nodes.some((node) => node.type === 'dataSource');
+  const hasDataSource = nodes.some((node) => node.type === "dataSource");
   if (!hasDataSource) {
     result.valid = false;
-    result.errors.push('Pipeline requires at least one data source node.');
+    result.errors.push("Pipeline requires at least one data source node.");
   }
 
   // Check if there are any output nodes
-  const hasOutput = nodes.some((node) => node.type === 'output');
+  const hasOutput = nodes.some((node) => node.type === "output");
   if (!hasOutput) {
     result.valid = false;
-    result.errors.push('Pipeline requires at least one output node.');
+    result.errors.push("Pipeline requires at least one output node.");
   }
 
   // Check for disconnected nodes
   const connectedNodeIds = new Set<string>();
-  
+
   edges.forEach((edge) => {
     connectedNodeIds.add(edge.source);
     connectedNodeIds.add(edge.target);
   });
-  
-  const disconnectedNodes = nodes.filter((node) => !connectedNodeIds.has(node.id));
+
+  const disconnectedNodes = nodes.filter(
+    (node) => !connectedNodeIds.has(node.id),
+  );
   if (disconnectedNodes.length > 0) {
-    result.warnings.push(`${disconnectedNodes.length} disconnected node(s) found.`);
+    result.warnings.push(
+      `${disconnectedNodes.length} disconnected node(s) found.`,
+    );
   }
 
   // Check for circular references
@@ -56,32 +62,32 @@ export const validatePipeline = (nodes: Node[], edges: Edge[]): PipelineValidati
   nodes.forEach((node) => {
     adjacencyList.set(node.id, []);
   });
-  
+
   edges.forEach((edge) => {
     const targets = adjacencyList.get(edge.source) || [];
     targets.push(edge.target);
     adjacencyList.set(edge.source, targets);
   });
-  
+
   const visited = new Set<string>();
   const recursionStack = new Set<string>();
-  
+
   const checkCycle = (nodeId: string): boolean => {
     if (recursionStack.has(nodeId)) return true;
     if (visited.has(nodeId)) return false;
-    
+
     visited.add(nodeId);
     recursionStack.add(nodeId);
-    
+
     const neighbors = adjacencyList.get(nodeId) || [];
     for (const neighbor of neighbors) {
       if (checkCycle(neighbor)) return true;
     }
-    
+
     recursionStack.delete(nodeId);
     return false;
   };
-  
+
   let hasCycle = false;
   for (const node of nodes) {
     if (!visited.has(node.id) && checkCycle(node.id)) {
@@ -89,10 +95,12 @@ export const validatePipeline = (nodes: Node[], edges: Edge[]): PipelineValidati
       break;
     }
   }
-  
+
   if (hasCycle) {
     result.valid = false;
-    result.errors.push('Circular dependencies detected in pipeline. Please remove cycles.');
+    result.errors.push(
+      "Circular dependencies detected in pipeline. Please remove cycles.",
+    );
   }
 
   return result;
@@ -108,11 +116,13 @@ export const serializePipeline = (nodes: Node[], edges: Edge[]): string => {
 /**
  * Deserializes a pipeline from JSON
  */
-export const deserializePipeline = (json: string): { nodes: Node[], edges: Edge[] } => {
+export const deserializePipeline = (
+  json: string,
+): { nodes: Node[]; edges: Edge[] } => {
   try {
     return JSON.parse(json);
   } catch (error) {
-    console.error('Failed to parse pipeline JSON:', error);
+    console.error("Failed to parse pipeline JSON:", error);
     return { nodes: [], edges: [] };
   }
 };

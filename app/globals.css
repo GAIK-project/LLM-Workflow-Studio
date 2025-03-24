@@ -122,7 +122,8 @@
 }
 
 /* ReactFlow custom styling */
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -152,9 +153,10 @@ html, body {
   border-radius: var(--radius-md);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: inline-block;
-  transition: box-shadow 0.2s, transform 0.1s;
+  transition:
+    box-shadow 0.2s,
+    transform 0.1s;
 }
-
 
 .react-flow__node:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
